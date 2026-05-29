@@ -144,3 +144,5 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'API REST para gestión de cursos, estudiantes, inscripciones y evaluaciones.',
     'VERSION': '1.0.0',
 }
+
+AUTH_USER_MODEL = "usuarios.Usuario"
