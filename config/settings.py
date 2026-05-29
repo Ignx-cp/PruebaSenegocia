@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     # Local apps
     'usuarios',
     'cursos',
-    'roles',
+    'inscripciones',
     'evaluaciones',
 ]
 

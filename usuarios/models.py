@@ -14,5 +14,11 @@ class Usuario(AbstractUser):
         default=Roles.ESTUDIANTE
     )
 
+    def es_administrador(self):
+        return self.rol == self.Roles.ADMINISTRADOR
+
+    def es_estudiante(self):
+        return self.rol == self.Roles.ESTUDIANTE
+
     def __str__(self):
-        return self.username
+        return f"{self.username} - {self.rol}"
