@@ -1,17 +1,17 @@
 from rest_framework import serializers
 
-from .models import Usuario
+from .models import Curso
 
 
-class UsuarioSerializer(serializers.ModelSerializer):
-
+class CursoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Usuario
+        model = Curso
         fields = [
             "id",
-            "username",
-            "first_name",
-            "last_name",
-            "email",
-            "rol",
+            "nombre",
+            "descripcion",
+            "capacidad_maxima",
+            "activo",
+            "fecha_creacion",
         ]
+        read_only_fields = ["id", "fecha_creacion"]

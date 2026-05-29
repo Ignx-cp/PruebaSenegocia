@@ -33,5 +33,7 @@ urlpatterns = [
         name='token_refresh'
     ),
 
+    path("api/", include("usuarios.urls")),
     path("api/", include("cursos.urls")),
+    path("api/", include("inscripciones.urls")),
 ]
