@@ -6,9 +6,9 @@ from cursos.permissions import EsAdministrador
 
 class EvaluacionViewSet(ModelViewSet):
     queryset = Evaluacion.objects.select_related(
-        "inscripcion",
-        "inscripcion__estudiante",
-        "inscripcion__curso"
-    ).all()
+    "inscripcion",
+    "inscripcion__estudiante",
+    "inscripcion__curso",
+    ).order_by("-fecha")
     serializer_class = EvaluacionSerializer
     permission_classes = [EsAdministrador]

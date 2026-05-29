@@ -145,6 +145,7 @@ REST_FRAMEWORK = {
         "login": "5/minute",
         "token_refresh": "10/minute",
     },
+    "EXCEPTION_HANDLER": "core.exceptions.custom_exception_handler",
 }
 
 SPECTACULAR_SETTINGS = {
