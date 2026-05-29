@@ -62,3 +62,7 @@ class ReportesAPITestCase(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(float(response.data[0]["promedio_notas"]), 6.0)
+
+    def test_top_3_estudiantes(self):
+        response = self.client.get( "/api/reportes/top-estudiantes/")
+        self.assertEqual(response.status_code,status.HTTP_200_OK,)    
