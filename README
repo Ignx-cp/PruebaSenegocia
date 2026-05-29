@@ -1,13 +1,16 @@
-## CI/CD
-El proyecto incluye un pipeline con GitHub Actions separado por ambientes:
-
-- En cada Pull Request o Push se ejecutan migraciones y tests.
-- Los cambios sobre `develop` ejecutan un despliegue simulado a `staging`.
-- Los cambios sobre `main` o `master` ejecutan un despliegue simulado a `production`.
-Los pasos de despliegue son simulados, ya que la prueba técnica no define una infraestructura real de despliegue.
+## Decisiones del proyecto
 - Se utilizó SQLite para simplificar la ejecución local de la prueba técnica.
 - En un entorno productivo se recomienda PostgreSQL por escalabilidad y concurrencia.
 - Se implementó JWT mediante SimpleJWT.
 - La lógica de negocio de inscripciones se centralizó en un Service Layer.
 - Las reglas de negocio retornan HTTP 409 Conflict.
 - Swagger fue implementado con drf-spectacular.
+
+## CI/CD
+El proyecto incluye un pipeline con GitHub Actions separado por ambientes:
+
+- En cada Pull Request o Push se ejecutan migraciones y tests.
+- Los cambios sobre `develop` ejecutan un despliegue simulado a `staging`.
+- Los cambios sobre `main` o `master` ejecutan un despliegue simulado a `production`.
+#Los pasos de despliegue son simulados, ya que la prueba técnica no define una infraestructura real de despliegue.
+
