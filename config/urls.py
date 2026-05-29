@@ -6,9 +6,9 @@ from drf_spectacular.views import (
     SpectacularSwaggerView
 )
 
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView
+from usuarios.token_views import (
+    LoginThrottleTokenObtainPairView,
+    RefreshThrottleTokenView,
 )
 
 urlpatterns = [
@@ -21,17 +21,8 @@ urlpatterns = [
         name='swagger-ui'
     ),
 
-    path(
-        'api/token/',
-        TokenObtainPairView.as_view(),
-        name='token_obtain_pair'
-    ),
-
-    path(
-        'api/token/refresh/',
-        TokenRefreshView.as_view(),
-        name='token_refresh'
-    ),
+    path("api/token/", LoginThrottleTokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/token/refresh/", RefreshThrottleTokenView.as_view(), name="token_refresh"),
 
     path("api/", include("usuarios.urls")),
     path("api/", include("cursos.urls")),
