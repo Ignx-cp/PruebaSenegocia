@@ -14,3 +14,6 @@ El proyecto incluye un pipeline con GitHub Actions separado por ambientes:
 - Los cambios sobre `main` o `master` ejecutan un despliegue simulado a `production`.
 #Los pasos de despliegue son simulados, ya que la prueba técnica no define una infraestructura real de despliegue.
 
+#Credenciales
+Las credenciales sensibles se gestionan mediante variables de entorno. 
+El archivo `.env` no se versiona y se incluye `.env.example` solo como referencia.
