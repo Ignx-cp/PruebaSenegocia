@@ -1,3 +1,12 @@
 from django.contrib import admin
+from .models import Evaluacion
 
-# Register your models here.
+
+@admin.register(Evaluacion)
+class EvaluacionAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "inscripcion",
+        "nota",
+        "fecha"
+    )
