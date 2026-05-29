@@ -160,3 +160,36 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "senegocia-cache",
+    }
+}
+
+#LOGS
+LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
+LOGGING_FORMAT = os.getenv("LOGGING_FORMAT", "json")
+
+if LOGGING_FORMAT == "json":
+    LOGGING = {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {
+            "json": {
+                "()": "pythonjsonlogger.json.JsonFormatter",
+                "format": "%(asctime)s %(levelname)s %(name)s %(message)s",
+            },
+        },
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler",
+                "formatter": "json",
+            },
+        },
+        "root": {
+            "handlers": ["console"],
+            "level": LOG_LEVEL,
+        },
+    }

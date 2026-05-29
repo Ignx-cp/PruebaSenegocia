@@ -7,6 +7,10 @@ from .permissions import EsAdministrador
 
 
 class UsuarioViewSet(viewsets.ModelViewSet):
-    queryset = Usuario.objects.all().order_by("id")
+    queryset = Usuario.objects.filter(is_active=True).order_by("id")
     serializer_class = UsuarioSerializer
     permission_classes = [IsAuthenticated, EsAdministrador]
+
+    def perform_destroy(self, instance):
+        instance.is_active = False
+        instance.save()

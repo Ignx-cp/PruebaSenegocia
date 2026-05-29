@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from inscripciones.models import Inscripcion
+from django.core.cache import cache
 
 from cursos.models import Curso
 from cursos.permissions import EsAdministrador
@@ -116,17 +117,28 @@ def estudiantes_de_curso(request, curso_id):
 @api_view(["GET"])
 @permission_classes([EsAdministrador])
 def top_3_estudiantes(request):
-    estudiantes = Usuario.objects.filter(
-        rol=Usuario.Roles.ESTUDIANTE,
-        inscripciones__evaluacion__isnull=False
-    ).annotate(
-        promedio_global=Avg("inscripciones__evaluacion__nota")
-    ).order_by(
-        "-promedio_global"
-    ).values(
-        "id",
-        "username",
-        "promedio_global"
-    )[:3]
+    cache_key = "top_3_estudiantes"
+    data = cache.get(cache_key)
+
+    if data is not None:
+        return Response(data)
+
+    estudiantes = list(
+        Usuario.objects.filter(
+            rol=Usuario.Roles.ESTUDIANTE,
+            inscripciones__evaluacion__isnull=False
+        )
+        .annotate(
+            promedio_global=Avg("inscripciones__evaluacion__nota")
+        )
+        .order_by("-promedio_global")
+        .values(
+            "id",
+            "username",
+            "promedio_global"
+        )[:3]
+    )
+
+    cache.set(cache_key, estudiantes, timeout=300)
 
     return Response(estudiantes)
