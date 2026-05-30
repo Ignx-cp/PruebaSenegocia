@@ -32,7 +32,7 @@ El proyecto incluye un pipeline con GitHub Actions separado por ambientes:
 - Rama develop ejecuta despliegue simulado a staging.
 - Rama main ejecuta despliegue simulado a producción.
 
-##Credenciales
+## Credenciales
 Las credenciales sensibles se gestionan mediante variables de entorno. 
 El archivo `.env` no se versiona y se incluye `.env.example` solo como referencia.
 
@@ -51,14 +51,12 @@ docker compose up --build
 
 ## Tests
 
-Ejecutar:
-
 ```bash
 python manage.py test --settings=config.test_settings
+```
 
-## Alternativa si quieres testear dentro de Docker
-
-También puedes correr:
+## Alternativa Docker
 
 ```bash
 docker compose exec web python manage.py test
+```
