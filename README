@@ -1,19 +1,64 @@
+Version: [1.0.0]
+Swagger local: http://localhost:8000/api/docs/
+## Descripcion: 
+API REST para la gestión de cursos, estudiantes, inscripciones y evaluaciones, desarrollada con Django y Django REST Framework.
+
+## Tecnologías utilizadas
+Python 3.14
+Django 6
+Django REST Framework
+SimpleJWT
+drf-spectacular
+PostgreSQL (Docker)
+SQLite (desarrollo local)
+Docker Compose
+GitHub Actions
+
 ## Decisiones del proyecto
 - Se utilizó SQLite para simplificar la ejecución local de la prueba técnica.
-- En un entorno productivo se recomienda PostgreSQL por escalabilidad y concurrencia.
+- Docker Compose utiliza PostgreSQL para cumplir el requisito de levantar aplicación y base de datos.
 - Se implementó JWT mediante SimpleJWT.
 - La lógica de negocio de inscripciones se centralizó en un Service Layer.
 - Las reglas de negocio retornan HTTP 409 Conflict.
 - Swagger fue implementado con drf-spectacular.
+- Se implementó soft delete para cursos y estudiantes.
+- Se implementó caché para el reporte Top 3 estudiantes.
+- Se implementó manejo global de excepciones.
+- Se implementó logging estructurado configurable por ambiente.
 
 ## CI/CD
 El proyecto incluye un pipeline con GitHub Actions separado por ambientes:
+- Pull Request y Push ejecutan migraciones y tests.
+- Rama develop ejecuta despliegue simulado a staging.
+- Rama main ejecuta despliegue simulado a producción.
 
-- En cada Pull Request o Push se ejecutan migraciones y tests.
-- Los cambios sobre `develop` ejecutan un despliegue simulado a `staging`.
-- Los cambios sobre `main` o `master` ejecutan un despliegue simulado a `production`.
-#Los pasos de despliegue son simulados, ya que la prueba técnica no define una infraestructura real de despliegue.
-
-#Credenciales
+##Credenciales
 Las credenciales sensibles se gestionan mediante variables de entorno. 
 El archivo `.env` no se versiona y se incluye `.env.example` solo como referencia.
+
+## Ejecución con Docker
+```bash
+cp .env.example .env
+docker compose up --build
+```
+
+## Reportes implementados
+
+- Cursos inscritos de un estudiante con promedio por curso.
+- Estudiantes inscritos en un curso con promedio.
+- Top 3 estudiantes con mejor promedio global.
+- Búsqueda y filtrado de cursos por nombre y estado.
+
+## Tests
+
+Ejecutar:
+
+```bash
+python manage.py test --settings=config.test_settings
+
+## Alternativa si quieres testear dentro de Docker
+
+También puedes correr:
+
+```bash
+docker compose exec web python manage.py test
